@@ -9,8 +9,9 @@ def super_types_list(request):
     super_types = Super_Types.objects.all()
 
     serializer = Super_TypesSerializer(super_types, many=True)
-    
 
-    return Response(serializer.data)
+
+    return Response(serializer.data) 
+    
     
 
