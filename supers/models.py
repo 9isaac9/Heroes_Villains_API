@@ -1,5 +1,5 @@
 from django.db import models
-from supers.models import Super
+from super_types.models import Super_Types
 
 # Create your models here.
 
@@ -9,4 +9,4 @@ class Super(models.Model):
     primary_ability = models.CharField(max_length=255)
     secondary_ability = models.CharField(max_length=255)
     catchphrase = models.CharField(max_length=255)
-    super_type = models.ForeignKey(Super, on_delete=models.CASCADE, null=True)
+    super_type = models.ForeignKey(Super_Types, on_delete=models.CASCADE)
