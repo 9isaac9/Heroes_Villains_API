@@ -37,6 +37,26 @@ def super_detail(request, pk):
     elif request.method == 'DELETE':
         super.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def supers_and_super_types(request):
+
+    supers = Super.objects.all()
+    super_types = Super_Types.objects.all()
+
+    super_serializer = SuperSerializer(supers, many=True)
+    super_types = Super_TypesSerializer(super_types, many=True)
+
+    custom_response_dict = {
+        'supers': super_serializer.data,
+        'super_types': super_types_serializer.data
+    }
+
+    return Response(custom_response_dict)    
+    
+
+
+
         
 
 
