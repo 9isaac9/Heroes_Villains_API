@@ -19,6 +19,8 @@ def supers_list(request):
 
         queryset = Super.objects.all()
 
+        if querparams:
+            queryset = queryset.filter(querparams=type)
      
 
         serializer = SuperSerializer(queryset, many=True)
