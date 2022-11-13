@@ -5,13 +5,23 @@ from rest_framework import status
 from .serializers import SuperSerializer
 from .models import Super
 
+
+
+
 # Create your views here.
 @api_view(['GET', 'POST'])
 def supers_list(request):
     
     if request.method == 'GET':
-        supers = Super.objects.all()
-        serializer = SuperSerializer(supers, many=True)
+        
+        querparams= request.query_params.get('type')
+        print (querparams)  
+
+        queryset = Super.objects.all()
+
+     
+
+        serializer = SuperSerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -38,21 +48,21 @@ def super_detail(request, pk):
         super.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+
 @api_view(['GET'])
-def supers_and_super_types(request):
 
-    supers = Super.objects.all()
-    super_types = Super_Types.objects.all()
+def get(self, request):
+        type_supers = Super.objects.filter(type='Hero')
 
-    super_serializer = SuperSerializer(supers, many=True)
-    super_types = Super_TypesSerializer(super_types, many=True)
+        type_serializer = SuperSerializer(type_supers, many=True)
 
-    custom_response_dict = {
-        'supers': super_serializer.data,
-        'super_types': super_types_serializer.data
-    }
+        custom_response_dictionary = {
+            "Type":type_serializer.data
+        }
 
-    return Response(custom_response_dict)    
+        return Response(custom_response_dictionary)
+      
     
 
 
