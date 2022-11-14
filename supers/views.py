@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404  
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,7 +20,9 @@ def supers_list(request):
         queryset = Super.objects.all()
 
         if querparams:
-            queryset = queryset.filter(querparams=type)
+            queryset = queryset.filter(super_type__type=querparams)
+
+            
      
 
         serializer = SuperSerializer(queryset, many=True)
@@ -53,17 +55,19 @@ def super_detail(request, pk):
 
 
 @api_view(['GET'])
+def get(request):
 
-def get(self, request):
-        type_supers = Super.objects.filter(type='Hero')
+    hero = Super.objects.filter(super_type=1)
+    villain = Super.objects.filter(super_type=2)
 
-        type_serializer = SuperSerializer(type_supers, many=True)
+    hero__type_serializer = SuperSerializer(hero, many=True),
+    villain_type_serializer = SuperSerializer(villain, many=True)
 
-        custom_response_dictionary = {
-            "Type":type_serializer.data
-        }
-
-        return Response(custom_response_dictionary)
+    custom_response_dict = {
+        "Hero":hero__type_serializer.data,
+        "Villain":villain_type_serializer.data
+    }
+    return Response(custom_response_dict)
       
     
 
