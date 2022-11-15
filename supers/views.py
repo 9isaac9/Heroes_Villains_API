@@ -60,11 +60,11 @@ def get(request):
     hero = Super.objects.filter(super_type=1)
     villain = Super.objects.filter(super_type=2)
 
-    hero__type_serializer = SuperSerializer(hero, many=True),
+    hero_type_serializer = SuperSerializer(hero, many=True)
     villain_type_serializer = SuperSerializer(villain, many=True)
 
-    custom_response_dict = {
-        "Hero":hero__type_serializer.data,
+    custom_response_dict = { 
+        "Hero":hero_type_serializer.data,
         "Villain":villain_type_serializer.data
     }
     return Response(custom_response_dict)
